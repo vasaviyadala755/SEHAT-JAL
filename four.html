@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Worker Registration Form</title>
+<style>
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    form {
+        width: 100%;
+        max-width: 650px;
+        padding: 30px 35px;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0); /* transparent */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    h2 {
+        text-align: center;
+        color: #1d3557;
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+    }
+    label {
+        font-weight: 600;
+        color: #1d3557;
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+    label span {
+        display: block;
+        font-weight: 400;
+        color: #555;
+        font-size: 13px;
+        margin-top: 2px;
+    }
+    input[type="text"], input[type="number"], input[type="email"], input[type="date"], select {
+        width: 100%; /* all inputs same length */
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border 0.3s;
+        box-sizing: border-box;
+    }
+    input:focus, select:focus {
+        border-color: #457b9d;
+        outline: none;
+    }
+    select {
+        cursor: pointer;
+    }
+    .submit-btn {
+        width: 50%;
+        padding: 14px 0;
+        background-color: #457b9d;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 25px auto 0 auto;
+        display: block;
+        transition: background 0.3s;
+    }
+    .submit-btn:hover {
+        background-color: #1d3557;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        h2 {
+            font-size: 20px;
+        }
+        .submit-btn {
+            width: 70%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<form>
+    <h2>Health Worker Registration Form / स्वास्थ्य कर्मी पंजीकरण फॉर्म</h2>
+
+    <div class="form-group">
+        <label>Full Name <span>पूरा नाम</span></label>
+        <input type="text" placeholder="Enter full name / पूरा नाम दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Age <span>आयु</span></label>
+        <input type="number" placeholder="Enter age / आयु दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Gender <span>लिंग</span></label>
+        <select>
+            <option value="">Select / चयन करें</option>
+            <option>Male / पुरुष</option>
+            <option>Female / महिला</option>
+            <option>Other / अन्य</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Contact Number <span>संपर्क नंबर</span></label>
+        <input type="text" placeholder="Enter contact number / संपर्क नंबर दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Email (if any) <span>ईमेल (यदि हो)</span></label>
+        <input type="email" placeholder="Enter email / ईमेल दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Health Worker ID <span>स्वास्थ्य कर्मी आईडी</span></label>
+        <input type="text" placeholder="Enter Health Worker ID / स्वास्थ्य कर्मी आईडी दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Role / Designation <span>भूमिका / पद</span></label>
+        <select>
+            <option value="">Select / चयन करें</option>
+            <option>ASHA Worker / आशीषा कार्यकर्ता</option>
+            <option>ANM / एएनएम</option>
+            <option>Doctor / चिकित्सक</option>
+            <option>Nurse / नर्स</option>
+            <option>Other / अन्य</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Assigned Area / District <span>जिम्मेदार क्षेत्र / जिला</span></label>
+        <input type="text" placeholder="Enter assigned area/district / क्षेत्र/जिला दर्ज करें">
+    </div>
+
+    <div class="form-group">
+        <label>Joining Date <span>नियुक्ति तिथि</span></label>
+        <input type="date">
+    </div>
+
+    <button type="submit" class="submit-btn"><a href="asha.html"> Submit/ सबमिट करें</a></button>
+</form>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,456 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sahat Jal — Smart Health Surveillance</title>
+
+  <!-- Leaflet (map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root{
+      --blue:#0b63d8;
+      --muted:#6b7280;
+      --card:#fff;
+      --bg:#f6f8fb;
+      --accent:#0ea5a3;
+      --govt:#0b4ea6;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    body{ margin:0; background:var(--bg); color:#0f172a; -webkit-font-smoothing:antialiased;}
+    .container{ max-width:1180px; margin:0 auto; padding:20px; }
+
+    /* NAVBAR */
+    header{ background:#fff; border-bottom:1px solid #e6e9ef; position:sticky; top:0; z-index:50;}
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 20px; max-width:1180px; margin:0 auto;}
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{ width:44px; height:44px; border-radius:8px; background:linear-gradient(135deg,var(--blue),var(--govt)); display:grid; place-items:center; color:#fff; font-weight:700; font-size:18px;}
+    .brand h1{ margin:0; font-size:18px; font-weight:700; color:var(--govt); }
+    nav .links{ display:flex; gap:16px; align-items:center; color:var(--muted); }
+    nav .links a{ text-decoration:none; color:var(--muted); font-weight:600;}
+
+    .nav-actions{ display:flex; gap:10px; align-items:center;}
+    .btn{ padding:9px 14px; border-radius:8px; font-weight:600; cursor:pointer; border:1px solid transparent; background:#fff;}
+    .btn.primary{ background:var(--blue); color:#fff; border-color:var(--blue); }
+    .btn.ghost{ background:#fff; color:var(--govt); border-color:#e6e9ef; }
+
+    /* HERO */
+    .hero{ display:flex; gap:20px; align-items:center; margin-top:18px; background:linear-gradient(180deg,#ffffff 0%, #f4f9ff 100%); padding:26px; border-radius:12px; box-shadow:0 6px 18px rgba(11,99,216,0.06);}
+    .hero-left{ flex:1; }
+    .hero h2{ margin:0 0 8px 0; font-size:30px; color:var(--govt); }
+    .hero p{ margin:0; color:var(--muted); font-size:15px; }
+    .hero-cta{ margin-top:14px; display:flex; gap:10px; }
+    .hero-illustr{ width:320px; height:160px; background:linear-gradient(#e7f2ff,#fff); border-radius:10px; display:grid; place-items:center; }
+
+    /* FEATURE cards */
+    .features{ display:flex; gap:14px; margin-top:18px; }
+    .card{ background:var(--card); padding:14px; border-radius:10px; flex:1; box-shadow:0 6px 20px rgba(15,23,42,0.04); min-height:96px; }
+    .card h4{ margin:6px 0 0 0; font-size:16px; }
+    .card p{ margin:6px 0 0 0; color:var(--muted); font-size:13px; }
+
+    /* MAP & CHART */
+    .mid{ display:grid; grid-template-columns: 1fr 360px; gap:18px; margin-top:18px; align-items:start;}
+    #map{ height:360px; border-radius:10px; overflow:hidden; box-shadow:0 8px 20px rgba(15,23,42,0.05);}
+    .panel{ background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(15,23,42,0.04); }
+
+    /* AWARENESS / VIDEOS */
+    .section-title{ font-size:20px; margin:18px 0 12px; color:var(--govt); }
+    .videos{ display:flex; gap:12px; }
+    .video-thumb{ width:220px; border-radius:8px; background:#eef6ff; padding:8px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;}
+    .video-thumb img{ width:100%; height:120px; object-fit:cover; border-radius:6px; }
+
+    /* MEDICINE BOX */
+    .med-grid{ display:flex; gap:12px; margin-top:12px; }
+    .med{ background:#fff; border-radius:10px; padding:14px; flex:1; text-align:center; box-shadow:0 6px 18px rgba(15,23,42,0.04); }
+    .med h5{ margin:8px 0 0; }
+    .med p{ margin:6px 0 0; color:var(--muted); font-size:13px; }
+
+    /* HELPLINE */
+    .helpline{ display:flex; gap:12px; margin-top:16px; }
+    .help-card{ background:linear-gradient(90deg,#f7fcff,#fff); border-radius:10px; padding:12px; flex:1; display:flex; gap:12px; align-items:center; box-shadow:0 6px 18px rgba(15,23,42,0.03); }
+    .help-card button{ margin-left:auto; }
+
+    /* Footer */
+    footer{ margin-top:26px; padding:18px 0; text-align:center; color:var(--muted); font-size:13px; }
+
+    /* Login modal */
+    .modal-back{ position:fixed; inset:0; background:rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:2000;}
+    .modal{ background:#fff; width:360px; border-radius:12px; padding:18px; box-shadow:0 14px 40px rgba(2,6,23,0.3); }
+    .role-btn{ display:flex; gap:8px; margin-top:12px; }
+    .role-btn button{ flex:1; padding:10px; border-radius:8px; border:1px solid #e6e9ef; background:#fff; cursor:pointer; }
+
+    /* responsive */
+    @media (max-width:900px){
+      .mid{ grid-template-columns: 1fr; }
+      .hero{ flex-direction:column; align-items:flex-start; gap:18px;}
+      .hero-illustr{ width:100%; height:140px; }
+      .videos{ overflow:auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">SJ</div>
+      <div>
+        <h1>SEHAT JAL</h1>
+        <div style="font-size:12px;color:var(--muted)">Smart Health Surveillance</div>
+      </div>
+    </div>
+
+    <div class="links" aria-label="Main navigation">
+      <a href="#">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#about">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#awareness">Awareness</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#contact">Contact</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+    </div>
+
+    <div class="nav-actions">
+      <div id="langToggle" style="font-weight:600; color:var(--muted); cursor:pointer;">English</div>
+      <button class="btn ghost" onclick="openLogin('login')">Login</button>
+      <button class="btn primary" onclick="openLogin('signup')">Signup</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="hero" role="region" aria-label="Hero">
+    <div class="hero-left">
+      <h2>Smart Health Surveillance for Clean Water & Safe Communities</h2>
+      <p>Detect, alert and respond to water-borne disease risks in remote communities. Community reporting + ASHA validation + authority response.</p>
+      <div class="hero-cta">
+        <button class="btn primary" onclick="openLogin('signup')">Report an Issue</button>
+        <button class="btn" onclick="scrollToMap()">View Map & Alerts</button>
+      </div>
+
+      <div style="margin-top:12px; display:flex; gap:12px;">
+        <div style="background:#fff; padding:8px 12px; border-radius:8px; box-shadow:0 6px 12px rgba(11,99,216,0.06); font-weight:600; color:var(--govt);">OfficialPilot</div>
+        <div style="background:#fff; padding:8px 12px; border-radius:8px; color:var(--muted);">Bilingual (EN/HI)</div>
+      </div>
+    </div>
+
+    <div class="hero-illustr" aria-hidden="true">
+      <img src="W.jpeg"
+           alt="health-worker" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS -->
+  <div class="features" aria-hidden="false">
+    <div class="card">
+      <div style="font-size:22px;">🧪</div>
+      <h4>AI Predictions</h4>
+      <p>Early detection of outbreak signals from symptom trends & sensor data.</p>
+    </div>
+    <div class="card">
+      <div style="font-size:22px;">📲</div>
+      <h4>Community Reporting</h4>
+      <p>Citizens & ASHA workers submit reports with photos & basic tests.</p>
+    </div>
+    <div class="card">
+      <div style="font-size:22px;">🚑</div>
+      <h4>Medicine Tracking</h4>
+      <p>Track requests, approvals and distributions of government medicines.</p>
+    </div>
+    <div class="card">
+      <div style="font-size:22px;">🗺️</div>
+      <h4>Red Zone Alerts</h4>
+      <p>Water bodies flagged unsafe—authorities coordinate cleanup actions.</p>
+    </div>
+  </div>
+
+  <!-- MAP + CHART -->
+  <div id="mapSection" class="mid">
+    <div id="map" class="panel" aria-label="Alert map"></div>
+
+    <div class="panel">
+      <h3 style="margin:0 0 8px 0;">People Affected (per area)</h3>
+      <canvas id="casesChart" width="360" height="260" aria-label="cases chart"></canvas>
+
+      <div style="margin-top:12px; color:var(--muted); font-size:13px;">Last updated: <strong id="lastUpdate">Just now</strong></div>
+
+      <div style="margin-top:10px; display:flex; gap:8px;">
+        <button class="btn" onclick="simulateNewReport()">Simulate report</button>
+        <button class="btn" onclick="centerToMarkers()">Center map</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AWARENESS VIDEOS -->
+  <div id="awareness">
+    <div class="section-title">Learn & Stay Safe</div>
+    <div class="videos">
+      <div class="video-thumb" onclick="openVideoModal('handwash.mp4')">
+        <img src="had.jpeg" alt="handwash">
+        <strong>Handwashing</strong>
+        <div style="color:var(--muted); font-size:13px;">हाथ धोना</div>
+      </div>
+
+      <div class="video-thumb" onclick="openVideoModal('st.mp4')">
+        <img src="store.jpeg" height="150px" width="150px" alt="water">
+        <strong>Safe water storage</strong>
+        <div style="color:var(--muted); font-size:13px;">सुरक्षित पानी</div>
+      </div>
+
+      <div class="video-thumb" onclick="openVideoModal('what.mp4')">
+        <img src="f.jpeg" alt="symptoms">
+        <strong>Early Symptoms</strong>
+        <div style="color:var(--muted); font-size:13px;">लक्षण</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDICINE BOX -->
+  <div>
+    <div class="section-title">Medicine Box</div>
+    <div class="med-grid">
+      <div class="med">
+        <div style="font-size:28px;">💊</div>
+        <h5>ORS</h5>
+        <p>For dehydration from diarrhea</p>
+      </div>
+      <div class="med">
+        <div style="font-size:28px;">🧾</div>
+        <h5>Paracetamol</h5>
+        <p>For fever and pain (follow dosage)</p>
+      </div>
+      <div class="med">
+        <div style="font-size:28px;">🧴</div>
+        <h5>Purification Tabs</h5>
+        <p>For emergency water disinfection</p>
+      </div>
+      <div class="med">
+        <div style="font-size:28px;">📦</div>
+        <h5>First Aid</h5>
+        <p>Basic supplies to support patients</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELPLINE -->
+  <div class="section-title" style="margin-top:18px;">Helplines</div>
+  <div class="helpline">
+    <div class="help-card">
+      <div style="font-size:20px; background:linear-gradient(#e7faff,#fff); padding:8px; border-radius:8px;">📞</div>
+      <div>
+        <div style="font-weight:700">ASHA Helpline</div>
+        <div style="color:var(--muted)">123-455-7830</div>
+      </div>
+      <button class="btn primary" onclick="window.location='tel:1234557830'">Call</button>
+    </div>
+
+    <div class="help-card">
+      <div style="font-size:20px; background:linear-gradient(#fff6e7,#fff); padding:8px; border-radius:8px;">💬</div>
+      <div>
+        <div style="font-weight:700">District Health Emergency</div>
+        <div style="color:var(--muted)">098-765-4321</div>
+      </div>
+      <button class="btn" onclick="alert('Open WhatsApp or send message (demo)')">WhatsApp</button>
+    </div>
+  </div>
+
+  <footer id="contact">
+    © Sahat Jal — Hackathon Prototype • About • Privacy • Contact
+  </footer>
+</main>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" style="display:none; position:fixed; inset:0; background:rgba(2,6,23,0.6); z-index:3000; align-items:center; justify-content:center;">
+  <div style="width:min(880px,92%); background:#000; border-radius:10px; padding:12px; max-height:90vh;">
+    <video id="videoPlayer" controls style="width:100%; height:auto; display:block;"></video>
+    <div style="text-align:right; margin-top:8px;"><button class="btn" onclick="closeVideoModal()">Close</button></div>
+  </div>
+</div>
+
+<!-- LOGIN / SIGNUP MODAL -->
+<div id="modal" class="modal-back" role="dialog" aria-hidden="true">
+  <div class="modal" role="document" aria-modal="true">
+    <h3 id="modalTitle">Login</h3>
+    <div style="margin-top:8px;">
+      <label style="font-size:13px;color:var(--muted)">Select role:</label>
+      <div class="role-btn">
+        <button onclick="submitRole('citizen')">Citizen</button>
+        <button onclick="submitRole('asha')">ASHA / Health Worker</button>
+        <button onclick="submitRole('authority')">Authority</button>
+      </div>
+      <div style="margin-top:12px; color:var(--muted); font-size:13px;">(Demo) Choose role to simulate redirect to respective dashboard.</div>
+    </div>
+
+    <div style="margin-top:14px; display:flex; gap:8px; justify-content:flex-end;">
+      <button class="btn" onclick="closeLogin()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- Translations (English / Hindi)
+  const strings = {
+    EN: {
+      login: 'Login',
+      signup: 'Signup',
+      learn: 'Learn & Stay Safe',
+      helpline: 'Helplines'
+    },
+    HI: {
+      login: 'लॉगिन',
+      signup: 'साइन अप',
+      learn: 'सीखें और सुरक्षित रहें',
+      helpline: 'हेल्पलाइन'
+    }
+  };
+  let currentLang = 'EN';
+  const langToggle = document.getElementById('langToggle');
+  langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'EN' ? 'HI' : 'EN';
+    langToggle.textContent = currentLang === 'EN' ? 'English' : 'हिन्दी';
+    // For demo: translate section header only
+    document.querySelectorAll('.section-title').forEach((el, i) => {
+      if (i===0) el.textContent = strings[currentLang].learn;
+      // additional translations can be added similarly
+    });
+  });
+
+  // --- LOGIN modal handling
+  const modalBack = document.getElementById('modal');
+  function openLogin(mode){
+    document.getElementById('modalTitle').textContent = (mode==='signup' ? 'Signup' : 'Login');
+    modalBack.style.display = 'flex';
+  }
+  function closeLogin(){ modalBack.style.display = 'none'; }
+  function submitRole(role){
+    closeLogin();
+    // simulate redirect
+    if(role === 'citizen') {
+     window.location.href="first.html"
+      // In real app: window.location = '/citizen-dashboard'
+    } else if(role === 'asha'){
+       window.location.href="four.html"
+    } else {
+       window.location.href="forms6.html"
+    }
+  }
+
+  // --- MAP (Leaflet)
+  const map = L.map('map', { zoomControl:true }).setView([23.5, 85.3], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // sample markers (id, lat, lng, status, name, cases)
+  let markerData = [
+    {id:1, lat:23.6, lng:85.4, status:'red', name:'Tank - Village A', cases:52},
+    {id:2, lat:23.1, lng:85.2, status:'green', name:'Well - Village B', cases:27},
+    {id:3, lat:23.8, lng:85.1, status:'yellow', name:'Pond - Village C', cases:13}
+  ];
+
+  const markers = [];
+  function addMarkers(){
+    markers.forEach(m => map.removeLayer(m.obj));
+    markers.length = 0;
+    markerData.forEach(d => {
+      const color = d.status === 'red' ? '#e11d48' : d.status==='yellow' ? '#f59e0b' : '#10b981';
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="width:18px;height:18px;border-radius:50%;background:${color};border:3px solid #fff;"></div>`,
+        iconSize:[24,24],
+        popupAnchor:[0,-10]
+      });
+      const m = L.marker([d.lat,d.lng], {icon}).addTo(map);
+      m.bindPopup(`<strong>${d.name}</strong><br/>Status: <strong>${d.status.toUpperCase()}</strong><br/>Cases: ${d.cases}<br/><div style="margin-top:8px;"><button onclick="markClean(${d.id})" style="padding:6px;border-radius:6px;border:1px solid #e6e9ef;background:#fff;cursor:pointer;">Mark Clean (Authority)</button></div>`);
+      markers.push({id:d.id,obj:m});
+    });
+  }
+  addMarkers();
+
+  function markClean(id){
+    // Basic check (demo) — ask if user is authority
+    const isAuth = confirm('Are you logged in as Authority? (demo confirm)');
+    if(!isAuth) { alert('Only Government Authorities can mark clean.'); return; }
+    // find marker
+    const idx = markerData.findIndex(x=>x.id===id);
+    if(idx>=0){
+      markerData[idx].status = 'green';
+      alert(markerData[idx].name + ' marked CLEAN. Map will update.');
+      addMarkers();
+    }
+  }
+
+  function centerToMarkers(){
+    if(markers.length) {
+      const group = L.featureGroup(markers.map(m=>m.obj));
+      map.fitBounds(group.getBounds().pad(0.4));
+    }
+  }
+
+  function simulateNewReport(){
+    // simulate a new red report increasing first marker cases
+    markerData[0].cases += 5;
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+    updateChart();
+    addMarkers();
+  }
+
+  // --- Chart.js (bar)
+  const ctx = document.getElementById('casesChart').getContext('2d');
+  function chartData(){
+    return {
+      labels: markerData.map(d=>d.name.split('-')[1]?.trim() || d.name),
+      datasets: [{
+        label:'Cases',
+        data: markerData.map(d=>d.cases),
+        backgroundColor: markerData.map(d => d.status === 'red' ? '#ef4444' : d.status==='yellow' ? '#f59e0b' : '#10b981'),
+        borderRadius:6,
+        barThickness:28
+      }]
+    };
+  }
+  const chart = new Chart(ctx, {
+    type:'bar',
+    data: chartData(),
+    options:{
+      plugins:{ legend:{ display:false } },
+      scales:{ y:{ beginAtZero:true, ticks:{ stepSize:10 } } }
+    }
+  });
+  function updateChart(){
+    chart.data = chartData();
+    chart.update();
+  }
+
+  // --- Video modal
+  function openVideoModal(src){
+    const modal = document.getElementById('videoModal');
+    const player = document.getElementById('videoPlayer');
+    player.src = src;
+    modal.style.display = 'flex';
+  }
+  function closeVideoModal(){
+    const modal = document.getElementById('videoModal');
+    const player = document.getElementById('videoPlayer');
+    player.pause();
+    player.src = '';
+    modal.style.display = 'none';
+  }
+
+  // Utility scroll
+  function scrollToMap(){
+    document.getElementById('mapSection').scrollIntoView({behavior:'smooth'});
+  }
+
+  // init center
+  centerToMarkers();
+
+</script>
+</body>
+</html>

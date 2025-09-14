@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Signup Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: url('transparent-bg.png') no-repeat center center fixed; 
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    margin: 0;
+  }
+
+  .signup-form {
+    background: rgba(255, 255, 255, 0); /* fully transparent */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: none; /* remove shadow for professional transparent look */
+    width: 420px;
+  }
+
+  .signup-form h2 {
+    text-align: center;
+    color: #2a4d8f;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 15px;
+  }
+
+  label span {
+    display: block;
+    font-weight: normal;
+    font-size: 13px;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.95); /* slightly opaque input fields for readability */
+  }
+
+  .consent {
+    font-size: 13px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  button {
+    width: 100%;
+    background: #2a4d8f;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #1e3a6a;
+  }
+</style>
+</head>
+<body>
+
+<form class="signup-form">
+  <h2>Citizen Signup / नागरिक पंजीकरण</h2>
+
+  <label>Full Name <span>पूरा नाम</span></label>
+  <input type="text" placeholder="Enter your full name / अपना पूरा नाम दर्ज करें" required>
+
+  <label>Gender <span>लिंग</span></label>
+  <select required>
+    <option value="">Select / चुनें</option>
+    <option>Male / पुरुष</option>
+    <option>Female / महिला</option>
+    <option>Other / अन्य</option>
+    <option>Prefer not to say / कहना पसंद नहीं</option>
+  </select>
+
+  <label>Date of Birth <span>जन्म तिथि</span></label>
+  <input type="date" required>
+
+  <label>Mobile Number <span>मोबाइल नंबर</span></label>
+  <input type="tel" placeholder="10-digit number / 10 अंकों का नंबर" pattern="[0-9]{10}" required>
+
+  <label>Email ID (Optional) <span>ईमेल आईडी (वैकल्पिक)</span></label>
+  <input type="email" placeholder="example@mail.com">
+
+  <label>Address <span>पता</span></label>
+  <textarea rows="2" placeholder="Village, District, State, Pincode / गाँव, जिला, राज्य, पिनकोड" required></textarea>
+
+  <label>Aadhaar Number / ID Proof (Optional) <span>आधार नंबर / पहचान पत्र (वैकल्पिक)</span></label>
+  <input type="text" placeholder="XXXX-XXXX-XXXX">
+
+  <label>Family Members Count <span>परिवार के सदस्यों की संख्या</span></label>
+  <input type="number" min="1" placeholder="Enter number / संख्या दर्ज करें">
+
+  <label>Preferred Language <span>प्राथमिक भाषा</span></label>
+  <select required>
+    <option value="">Select / चुनें</option>
+    <option>English / अंग्रेज़ी</option>
+    <option>Hindi / हिंदी</option>
+    <option>Local Language / स्थानीय भाषा</option>
+  </select>
+
+  <label>Username <span>उपयोगकर्ता नाम</span></label>
+  <input type="text" required>
+
+  <label>Password <span>पासवर्ड</span></label>
+  <input type="password" required>
+
+  <label>Confirm Password <span>पासवर्ड की पुष्टि करें</span></label>
+  <input type="password" required>
+
+  <div class="consent">
+    <label><input type="checkbox" required> I agree to share my information for community health monitoring / मैं अपनी जानकारी सामुदायिक स्वास्थ्य निगरानी के लिए साझा करने के लिए सहमत हूं।</label>
+  </div>
+
+  <button type="submit"><a href="citi.html"> SIgnUp / पंजीकरण करें</a></button>
+</form>
+
+</body>
+</html>

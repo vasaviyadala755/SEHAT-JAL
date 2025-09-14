@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahat Jal - Smart Health Surveillance</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #0056b3;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    nav .buttons button {
+      margin-left: 10px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .login {
+      background: #fff;
+      color: #0056b3;
+    }
+
+    .signup {
+      background: #ffcc00;
+      color: #000;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e6f0ff;
+      padding: 50px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 40px 20px;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 200px;
+      margin: 10px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .feature-card h3 {
+      color: #0056b3;
+    }
+
+    /* Map + Graph */
+    .map-graph {
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    .map, .graph {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Videos */
+    .videos {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .video-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .video-card {
+      width: 250px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    /* Medicine Box */
+    .medicine-box {
+      padding: 40px;
+      background: #e6f0ff;
+    }
+
+    .medicines {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .medicine {
+      width: 200px;
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background: #003366;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>Sahat Jal</h1>
+    <div class="buttons">
+      <button class="login">Login</button>
+      <button class="signup">Signup</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <h2>Smart Health Surveillance <br> for Clean Water & Safe Communities</h2>
+    </div>
+    <img src="https://img.icons8.com/color/150/doctor-female.png" alt="Doctor Illustration">
+  </div>
+
+  <!-- Features -->
+  <div class="features">
+    <div class="feature-card">
+      <h3>AI Predictions</h3>
+      <p>Early detection of outbreaks</p>
+    </div>
+    <div class="feature-card">
+      <h3>Community Reporting</h3>
+      <p>Citizens + ASHA Input</p>
+    </div>
+    <div class="feature-card">
+      <h3>Medicine Tracking</h3>
+      <p>Govt. distribution updates</p>
+    </div>
+    <div class="feature-card">
+      <h3>Red Zone Alerts</h3>
+      <p>Unsafe water sources flagged</p>
+    </div>
+  </div>
+
+  <!-- Map + Graph -->
+  <div class="map-graph">
+    <div class="map">
+      <h3>Red Alert Zones</h3>
+      <img src="https://via.placeholder.com/400x250?text=Map+with+Red+Zones" alt="Map">
+    </div>
+    <div class="graph">
+      <h3>People Affected</h3>
+      <img src="https://via.placeholder.com/300x250?text=Bar+Graph" alt="Graph">
+    </div>
+  </div>
+
+  <!-- Videos -->
+  <div class="videos">
+    <h2>Learn & Stay Safe</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <video width="100%" height="150%" controls>
+            <source src="what.mp4" type="video">
+        </video>
+        <h3>Handwashing</h3>
+        <p>दिया धोएं</p>
+      </div>
+      <div class="video-card">
+        <h3>Safe Drinking Water</h3>
+        <p>सुरक्षित पानी पिएं</p>
+      </div>
+      <div class="video-card">
+        <h3>Early Symptoms</h3>
+        <p>लक्षण पहचानें</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medicine Box -->
+  <div class="medicine-box">
+    <h2>Medicine Box</h2>
+    <div class="medicines">
+      <div class="medicine">
+        <h3>ORS</h3>
+        <p>Dehydration treatment</p>
+      </div>
+      <div class="medicine">
+        <h3>Paracetamol</h3>
+        <p>Fever & pain relief</p>
+      </div>
+      <div class="medicine">
+        <h3>Purification Tablets</h3>
+        <p>Clean drinking water</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Sahat Jal | Government Hackathon Project
+  </footer>
+
+</body>
+</html>

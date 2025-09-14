@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | उपयोगकर्ता डैशबोर्ड</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7faff;
+      color: #222;
+    }
+    header {
+      background: #0a9396;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #005f73;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #0a9396;
+    }
+    #formSection {
+      display: none;
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #0a9396;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 15px;
+      width: 100%;
+    }
+    button:hover {
+      background: #007f81;
+    }
+    .sms-btn {
+      background: #d90429;
+    }
+    .sms-btn:hover {
+      background: #9b021d;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  User Dashboard | उपयोगकर्ता डैशबोर्ड
+</header>
+
+<div class="container">
+  <h2>🙋 Select Option | विकल्प चुनें</h2>
+
+  <div class="options">
+    <div class="card" onclick="openForm('issue')">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" alt="Report Issue">
+      <p>Report Issue<br>समस्या रिपोर्ट करें</p>
+    </div>
+    <div class="card" onclick="openForm('water')">
+      <img src="https://cdn-icons-png.flaticon.com/512/809/809957.png" alt="Water">
+      <p>Report Contaminated Water<br>गंदा पानी रिपोर्ट करें</p>
+    </div>
+    <div class="card" onclick="openForm('health')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" alt="Health">
+      <p>Report Health Problem<br>स्वास्थ्य समस्या रिपोर्ट करें</p>
+    </div>
+    <div class="card" onclick="">
+      <img src="https://cdn-icons-png.flaticon.com/512/2913/2913132.png" alt="Emergency">
+      <p>Emergency Contact<br>आपातकालीन संपर्क</p>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div id="formSection">
+    <h3 id="formTitle"></h3>
+    <form id="userForm">
+      <label for="details">Details | विवरण:</label>
+      <textarea id="details" rows="4" required></textarea>
+
+      <label for="location">Your Location | आपका स्थान:</label>
+      <input type="text" id="location" placeholder="Enter location | स्थान दर्ज करें" required>
+
+      <label for="photo">Upload / Take Photo | फोटो अपलोड करें / फोटो लें:</label>
+      <input type="file" id="photo" accept="image/*" capture="environment">
+
+      <button type="submit">✅ Submit | सबमिट करें</button>
+      <button type="button" class="sms-btn" onclick="sendSMS()">📩 Send SMS | SMS भेजें</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openForm(type) {
+    document.getElementById("formSection").style.display = "block";
+    let title = "";
+    if(type === "issue") title = "⚠️ Report Issue | समस्या रिपोर्ट करें";
+    if(type === "water") title = "🌊 Contaminated Water Report | गंदा पानी रिपोर्ट करें";
+    if(type === "health") title = "🩺 Health Problem | स्वास्थ्य समस्या";
+   
+
+    document.getElementById("formTitle").innerText = title;
+  }
+
+  document.getElementById("userForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("✅ Report submitted successfully online!");
+  });
+
+  function sendSMS() {
+    const details = document.getElementById("details").value || "N/A";
+    const location = document.getElementById("location").value || "Unknown";
+    const smsMessage = `USER REPORT 📢\nDetails: ${details}\nLocation: ${location}`;
+    const smsLink = `sms:12345?body=${encodeURIComponent(smsMessage)}`;
+    window.location.href = smsLink;
+  }
+</script>
+
+</body>
+</html>
+

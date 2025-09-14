@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASHA Worker | आशा कार्यकर्ता डैशबोर्ड</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f8ff;
+      color: #222;
+    }
+    header {
+      background: #0077b6;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #023e8a;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #0077b6;
+    }
+    #formSection {
+      display: none;
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #00b4d8;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 15px;
+      width: 100%;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+    .sms-btn {
+      background: #d90429;
+    }
+    .sms-btn:hover {
+      background: #9b021d;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  ASHA Worker Dashboard | आशा कार्यकर्ता डैशबोर्ड
+</header>
+
+<div class="container">
+  <h2>👩‍⚕️ Select Action | कार्रवाई चुनें</h2>
+
+  <div class="options">
+    <div class="card" onclick="openForm('cases')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" alt="Cases">
+      <p>Report Cases<br>मामले रिपोर्ट करें</p>
+    </div>
+    <div class="card" onclick="openForm('medicine')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Medicine">
+      <p>Medicine Update<br>दवा अपडेट</p>
+    </div>
+    <div class="card" onclick="openForm('water')">
+      <img src="https://cdn-icons-png.flaticon.com/512/809/809957.png" alt="Water">
+      <p>Water Condition<br>जल स्थिति</p>
+    </div>
+    <div class="card" onclick="openForm('outbreak')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2913/2913132.png" alt="Outbreak">
+      <p>Outbreak Alert<br>महामारी चेतावनी</p>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div id="formSection">
+    <h3 id="formTitle"></h3>
+    <form id="ashaForm">
+      <label for="details">Details | विवरण:</label>
+      <textarea id="details" rows="4" required></textarea>
+
+      <label for="photo">Upload / Take Photo | फोटो अपलोड करें / फोटो लें:</label>
+      <input type="file" id="photo" accept="image/*" capture="environment">
+
+      <button type="submit">✅ Submit | सबमिट करें</button>
+      <button type="button" class="sms-btn" onclick="sendSMS()">📩 Send SMS | SMS भेजें</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openForm(type) {
+    document.getElementById("formSection").style.display = "block";
+    let title = "";
+    if(type === "cases") title = "📝 Report Cases | मामले रिपोर्ट करें";
+    if(type === "medicine") title = "💊 Medicine Update | दवा अपडेट करें";
+    if(type === "water") title = "🌊 Water Condition | जल की स्थिति";
+    if(type === "outbreak") title = "🚨 Outbreak Alert | महामारी चेतावनी";
+
+    document.getElementById("formTitle").innerText = title;
+  }
+
+  document.getElementById("ashaForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("✅ Submitted successfully online!");
+  });
+
+  function sendSMS() {
+    const details = document.getElementById("details").value || "N/A";
+    const smsMessage = `ASHA REPORT 🩺\nDetails: ${details}`;
+    const smsLink = `sms:12345?body=${encodeURIComponent(smsMessage)}`;
+    window.location.href = smsLink;
+  }
+</script>
+
+</body>
+</html>
+

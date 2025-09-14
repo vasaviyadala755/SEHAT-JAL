@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f8fb;
+      color: #333;
+    }
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .action-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .action-card:hover {
+      transform: scale(1.05);
+    }
+    .action-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+    .map-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      text-align: center;
+      display: none; /* Hidden initially */
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 20px;
+      background: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #023e8a;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Authority Dashboard</h1>
+  </header>
+
+  <h2>Quick Actions</h2>
+  <div class="actions">
+    <div class="action-card">
+      <img src="https://img.icons8.com/fluency/96/ok.png" alt="Approve">
+      <h3>Approve Report</h3>
+    </div>
+    <div class="action-card">
+      <img src="https://img.icons8.com/fluency/96/sms.png" alt="SMS Alert">
+      <h3>Send SMS Alert</h3>
+    </div>
+    <div class="action-card">
+      <img src="https://img.icons8.com/fluency/96/broom.png" alt="Cleaning Team">
+      <h3>Dispatch Cleaning Team</h3>
+    </div>
+    <div class="action-card">
+      <img src="https://img.icons8.com/fluency/96/pill.png" alt="Medicines">
+      <h3>Allocate Medicines</h3>
+    </div>
+  </div>
+
+  <!-- Button to open map -->
+  <button class="btn" onclick="toggleMap()">📍 View Affected Zones</button>
+
+  <!-- Map Section -->
+  <div class="map-container" id="map-container">
+    <h2>Affected Zones Map</h2>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let mapInitialized = false;
+
+    function toggleMap() {
+      const mapContainer = document.getElementById('map-container');
+      if (mapContainer.style.display === "none") {
+        mapContainer.style.display = "block";
+        if (!mapInitialized) {
+          initMap();
+          mapInitialized = true;
+        }
+      } else {
+        mapContainer.style.display = "none";
+      }
+    }
+
+    function initMap() {
+      var map = L.map('map').setView([26.2006, 92.9376], 6); // Northeast India
+
+      // OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Example zones
+      var zones = [
+        { name: "Guwahati", coords: [26.1445, 91.7362], status: "red", cases: 120 },
+        { name: "Shillong", coords: [25.5788, 91.8933], status: "yellow", cases: 45 },
+        { name: "Imphal", coords: [24.8170, 93.9368], status: "green", cases: 5 }
+      ];
+
+      zones.forEach(zone => {
+        var color = zone.status === "red" ? "red" : zone.status === "yellow" ? "orange" : "green";
+
+        var marker = L.circleMarker(zone.coords, {
+          radius: 12,
+          fillColor: color,
+          color: color,
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.7
+        }).addTo(map);
+
+        marker.bindPopup(`<b>${zone.name}</b><br>Status: ${zone.status.toUpperCase()}<br>Cases: ${zone.cases}`);
+      });
+    }
+  </script>
+
+</body>
+</html>
+

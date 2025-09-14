@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Government Official Registration Form</title>
+<style>
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    form {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0); /* fully transparent */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 30px 25px;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        text-align: center;
+        color: #1d3557;
+        margin-bottom: 25px;
+        font-size: 24px;
+        border-bottom: 2px solid #457b9d33;
+        padding-bottom: 10px;
+    }
+
+    .section {
+        padding: 15px 0;
+        margin-bottom: 20px;
+    }
+
+    .section h3 {
+        margin-top: 0;
+        color: #457b9d;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 600;
+        color: #1d3557;
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+
+    label span {
+        display: block;
+        font-weight: 400;
+        color: #555;
+        font-size: 13px;
+        margin-top: 2px;
+    }
+
+    input[type="text"], input[type="number"], input[type="email"], input[type="date"], select {
+        width: 100%; /* all fields fit within form */
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border 0.3s;
+        background-color: rgba(255,255,255,0.9);
+        box-sizing: border-box;
+    }
+
+    input:focus, select:focus {
+        border-color: #457b9d;
+        outline: none;
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    .submit-btn {
+        width: 50%;
+        padding: 12px 0;
+        background-color: #457b9d;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto 0 auto;
+        transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #1d3557;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .submit-btn {
+            width: 70%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<form>
+    <h2>Government Official Registration Form / सरकारी अधिकारी पंजीकरण फॉर्म</h2>
+
+    <!-- Personal Info Section -->
+    <div class="section">
+        <h3>Personal Information / व्यक्तिगत जानकारी</h3>
+
+        <div class="form-group">
+            <label>Full Name <span>पूरा नाम</span></label>
+            <input type="text" placeholder="Enter full name / पूरा नाम दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Age <span>आयु</span></label>
+            <input type="number" placeholder="Enter age / आयु दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Gender <span>लिंग</span></label>
+            <select>
+                <option value="">Select / चयन करें</option>
+                <option>Male / पुरुष</option>
+                <option>Female / महिला</option>
+                <option>Other / अन्य</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Number <span>संपर्क नंबर</span></label>
+            <input type="text" placeholder="Enter contact number / संपर्क नंबर दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Email <span>ईमेल</span></label>
+            <input type="email" placeholder="Enter email / ईमेल दर्ज करें">
+        </div>
+    </div>
+
+    <!-- Official Info Section -->
+    <div class="section">
+        <h3>Official Details / आधिकारिक जानकारी</h3>
+
+        <div class="form-group">
+            <label>Official ID <span>अधिकारी आईडी</span></label>
+            <input type="text" placeholder="Enter Official ID / अधिकारी आईडी दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Designation / Role <span>पद / भूमिका</span></label>
+            <select>
+                <option value="">Select / चयन करें</option>
+                <option>District Officer / जिला अधिकारी</option>
+                <option>Health Inspector / स्वास्थ्य निरीक्षक</option>
+                <option>Department Head / विभाग प्रमुख</option>
+                <option>Other / अन्य</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Department / Ministry <span>विभाग / मंत्रालय</span></label>
+            <input type="text" placeholder="Enter department / विभाग दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Assigned District / Area <span>जिम्मेदार जिला / क्षेत्र</span></label>
+            <input type="text" placeholder="Enter assigned district/area / जिला/क्षेत्र दर्ज करें">
+        </div>
+
+        <div class="form-group">
+            <label>Joining Date <span>नियुक्ति तिथि</span></label>
+            <input type="date">
+        </div>
+    </div>
+
+    <button type="submit" class="submit-btn"><a href="offi.html"> Submit / सबमिट करें</a></button>
+</form>
+
+</body>
+</html>
+
