@@ -111,8 +111,3 @@ Notification System: Submissions trigger alerts to authorities.
 
 
 
----
-
-👉 This captures your entire motive in short but complete form.
-
-Do you want me to turn this into a pitch-ready one-page document/slide (with icons & flow arrows) for your hackathon?
